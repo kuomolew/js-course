@@ -9,7 +9,7 @@ GAME RULES:
 
 // User changing rules implementation
 
-var scores, roundScore, activePlayer, gamePlaying, oldDice;
+var scores, roundScore, activePlayer, gamePlaying, oldDice, gameMax;
 
 // scores = [0, 0];
 // roundScore = 0;
@@ -62,7 +62,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
         // Check if plater won the game
-        if (scores[activePlayer] >= 20) {
+        if (scores[activePlayer] >= gameMax) {
             document.getElementById('name-' + activePlayer).textContent = 'WINNER';
             document.querySelector('.dice').style.display  =  'none';
             document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('active');
@@ -86,6 +86,10 @@ function init() {
     roundScore = 0;
     oldDice = 0;
     gamePlaying = true;
+
+    // Ask user to set max score, if score is undefined or NaN use 100
+    gameMax = prompt ('Please choose win game score', 100);
+    Number(gameMax) ? gameMax = Number(gameMax) : gameMax = 20;
 
     document.querySelector('.dice').style.display  =  'none';
 
